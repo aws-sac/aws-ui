@@ -2,6 +2,22 @@
   <div class="col-md-12">
     <h1>AWS-UI</h1>
 
+    <h2>Cel mai ieftin medicament care contine o anumita substanta activa</h2>
+    <code><pre>{{ 'QUERY HERE' }}
+    </pre></code>
+
+    <div *ngIf="data.query1">
+      <table>
+        <tr>
+          <th *ngFor="let h of data.query1.head.vars">{{ h }}</th>
+        </tr>
+        <tr *ngFor="let e of data.query1.results.bindings">
+          <td>{{ e.entity.value }}</td>
+          <td>{{ e.result.value }}</td>
+        </tr>
+      </table>
+    </div>
+
     <h2>Cel mai ieftin medicament la o cautare dupa nume</h2>
     <code><pre>{{ 'PREFIX pm:<https://fuseki-aws.herokuapp.com/PreturiMedicamente.owl#>
       SELECT ?entity  ?result
@@ -12,12 +28,12 @@
       ORDER BY ?result DESC(pm:PretAm)' }}
     </pre></code>
 
-    <div *ngIf="data.query1">
+    <div *ngIf="data.query2">
       <table>
         <tr>
-          <th *ngFor="let h of data.query1.head.vars">{{ h }}</th>
+          <th *ngFor="let h of data.query2.head.vars">{{ h }}</th>
         </tr>
-        <tr *ngFor="let e of data.query1.results.bindings">
+        <tr *ngFor="let e of data.query2.results.bindings">
           <td>{{ e.entity.value }}</td>
           <td>{{ e.result.value }}</td>
         </tr>

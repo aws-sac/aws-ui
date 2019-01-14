@@ -10,20 +10,31 @@ export class AppComponent {
   title = 'aws-ui';
   data = {
     query1: null,
+    query2: null,
     query3: null
   };
 
   constructor(private http: HttpClient) {
     this.query1();
+    this.query2();
     this.query3();
   }
 
   query1(): any {
+    let apiURL = ``;
+
+    return this.http.get(apiURL)
+      .subscribe(data => {
+        this.data.query2 = data;
+      });
+  }
+
+  query2(): any {
     let apiURL = `https://fuseki-aws.herokuapp.com/meds/query?query=PREFIX+pm%3A%3Chttps%3A%2F%2Ffuseki-aws.herokuapp.com%2FPreturiMedicamente.owl%23%3E%0D%0A++SELECT+%3Fentity++%3Fresult%0D%0A++WHERE+%7B%0D%0A++++++%3Fentity+pm%3ACodCIM+%3Fresult+.%0D%0A++++++FILTER%28%3Fresult+%3D+%22W43451003%22%29%0D%0A++%7D%0D%0A++ORDER+BY+%3Fresult+DESC%28pm%3APretAm%29&output=json&stylesheet=%2Fxml-to-html.xsl`;
 
     return this.http.get(apiURL)
       .subscribe(data => {
-        this.data.query1 = data;
+        this.data.query2 = data;
       });
   }
 
