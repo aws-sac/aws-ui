@@ -2,8 +2,17 @@
   <div class="col-md-12">
     <h1>AWS-UI</h1>
 
-    <h2>Cel mai ieftin medicament care contine o anumita substanta activa</h2>
-    <code><pre>{{ 'QUERY HERE' }}
+    <h2>Cel mai ieftin medicament care contine o anumita substanta activa (e.g. OLANZAPINUM)</h2>
+    <code><pre>{{ 'PREFIX pm:<https://fuseki-aws.herokuapp.com/PreturiMedicamente.owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT ?entity ?result
+WHERE {
+	?entity pm:DCI ?result .
+	?entity pm:PretAm ?price .
+	FILTER(?result = "OLANZAPINUM")
+	}
+ORDER BY ASC(xsd:float(?price))
+LIMIT 1' }}
     </pre></code>
 
     <div *ngIf="data.query1">
@@ -20,12 +29,12 @@
 
     <h2>Cel mai ieftin medicament la o cautare dupa nume</h2>
     <code><pre>{{ 'PREFIX pm:<https://fuseki-aws.herokuapp.com/PreturiMedicamente.owl#>
-      SELECT ?entity  ?result
-      WHERE {
-        ?entity pm:CodCIM ?result .
-        FILTER(?result = "W43451003")
-      }
-      ORDER BY ?result DESC(pm:PretAm)' }}
+SELECT ?entity  ?result
+WHERE {
+	?entity pm:CodCIM ?result .
+	FILTER(?result = "W43451003")
+}
+ORDER BY ?result DESC(pm:PretAm)' }}
     </pre></code>
 
     <div *ngIf="data.query2">
@@ -42,11 +51,11 @@
 
     <h2>Numarul de medicamente puse pe piata de o firma X</h2>
     <code><pre>{{ 'PREFIX pm:<https://fuseki-aws.herokuapp.com/PreturiMedicamente.owl#>
-      SELECT ?entity  ?result
-      WHERE {
-          ?entity pm:Firma ?result .
-          FILTER(?result = "OTSUKA PHARMACEUTICAL EUROPE LTD - MAREA BRITANIE")
-      }' }}
+SELECT ?entity  ?result
+WHERE {
+	?entity pm:Firma ?result .
+	FILTER(?result = "OTSUKA PHARMACEUTICAL EUROPE LTD - MAREA BRITANIE")
+}' }}
     </pre></code>
     <div *ngIf="data.query3">
         <table>
