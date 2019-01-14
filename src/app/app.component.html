@@ -49,13 +49,14 @@ ORDER BY ?result DESC(pm:PretAm)' }}
       </table>
     </div>
 
-    <h2>Numarul de medicamente puse pe piata de o firma X</h2>
+    <h2>Numarul de medicamente puse pe piata de o firma (e.g. OTSUKA PHARMACEUTICAL EUROPE LTD - MAREA BRITANIE)</h2>
     <code><pre>{{ 'PREFIX pm:<https://fuseki-aws.herokuapp.com/PreturiMedicamente.owl#>
-SELECT ?entity  ?result
+SELECT ?entity (COUNT(?result) as ?value)
 WHERE {
-	?entity pm:Firma ?result .
-	FILTER(?result = "OTSUKA PHARMACEUTICAL EUROPE LTD - MAREA BRITANIE")
-}' }}
+    ?Data pm:Firma ?result .
+    FILTER(?result = "OTSUKA PHARMACEUTICAL EUROPE LTD - MAREA BRITANIE")
+  }
+GROUP BY ?entity' }}
     </pre></code>
     <div *ngIf="data.query3">
         <table>
@@ -63,8 +64,8 @@ WHERE {
             <th *ngFor="let h of data.query3.head.vars">{{ h }}</th>
           </tr>
           <tr *ngFor="let e of data.query3.results.bindings">
-            <td>{{ e.entity.value }}</td>
-            <td>{{ e.result.value }}</td>
+            <td>{{ e.value.datatype}}</td>
+            <td>{{ e.value.value }}</td>
           </tr>
         </table>
       </div>
